@@ -2,6 +2,8 @@
 
 A modern, polished restaurant ordering app built with **Flutter** and Material 3.
 
+![Tasty Bites app screens](docs/screenshots/mockup.jpeg)
+
 ## ✨ Features
 
 - **Home** — location bar, search, promo banner, category filter chips, and a dish grid
@@ -60,10 +62,17 @@ tasty_bites/
    flutter build apk --release
    ```
 
+> **Note:** This repo contains the Dart source (`lib/`) and `pubspec.yaml`. To generate the
+> platform folders (`android/`, `ios/`, `web/`), run `flutter create .` inside the project once.
+
 ## 🎨 Customizing
 
 - **Brand color** — change `seed` in `lib/main.dart`
 - **Menu items** — edit `lib/data/sample_data.dart`
 - **Real images** — swap the `emoji` field for `Image.network(...)` / `Image.asset(...)` in `dish_card.dart`, `menu_screen.dart`, and `dish_detail_screen.dart`
+
+## 📄 License
+
+Released under the [MIT License](LICENSE).
 
 Enjoy! 🍽️
