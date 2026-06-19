@@ -1,78 +1,114 @@
-# 🍔 Tasty Bites — Flutter Restaurant App
+# Tasty Bites
 
-A modern, polished restaurant ordering app built with **Flutter** and Material 3.
+A polished Flutter restaurant-ordering demo built with Material 3. Browse a curated menu, inspect dishes, manage quantities in a cart, and move through the experience using a compact bottom navigation bar.
 
 ![Tasty Bites app screens](docs/screenshots/mockup.jpeg)
 
-## ✨ Features
+## What is included
 
-- **Home** — location bar, search, promo banner, category filter chips, and a dish grid
-- **Menu** — full searchable list of dishes
-- **Dish Detail** — large hero, rating/time/category chips, quantity selector, add-to-cart
-- **Cart** — quantity editing, live subtotal + delivery fee + total, checkout dialog
-- **Profile** — account screen with settings list
-- **State management** with `provider` (cart persists across tabs)
-- Clean Material 3 theming with `google_fonts` (Poppins)
-- Emoji-based dish art (no asset downloads needed — works offline out of the box)
+- A home feed with delivery details, category filters, promotions, and popular dishes.
+- A searchable menu and a dish-detail page with quantity controls.
+- A cart with live item counts, subtotal, delivery fee, and total calculation.
+- A profile screen with common account actions.
+- Shared cart state powered by `provider`, so the basket stays in sync across tabs.
+- A Material 3 theme using the Poppins font from `google_fonts`.
+- Emoji-based dish artwork: the demo needs no image-asset setup to run.
 
-## 📁 Project Structure
+## Tech stack
 
-```
-tasty_bites/
-├── pubspec.yaml
-└── lib/
-    ├── main.dart                  # App entry, theme, provider
-    ├── models/
-    │   └── dish.dart              # Dish data model
-    ├── data/
-    │   └── sample_data.dart       # Categories + sample dishes
-    ├── providers/
-    │   └── cart_provider.dart     # Cart state (ChangeNotifier)
-    ├── widgets/
-    │   └── dish_card.dart         # Reusable dish grid card
-    └── screens/
-        ├── root_nav.dart          # Bottom navigation shell
-        ├── home_screen.dart
-        ├── menu_screen.dart
-        ├── dish_detail_screen.dart
-        ├── cart_screen.dart
-        └── profile_screen.dart
+| Area | Choice | Why it is used |
+| --- | --- | --- |
+| UI | Flutter + Material 3 | A responsive, modern interface from one codebase. |
+| State | `provider` | Keeps cart data simple and available throughout the app. |
+| Typography | `google_fonts` | Applies Poppins consistently to the app theme. |
+| Web | Flutter web | Lets the project run directly in Chrome. |
+
+## Getting started
+
+### Prerequisites
+
+Install the [Flutter SDK](https://docs.flutter.dev/get-started/install) and confirm that Chrome is available for web development:
+
+```bash
+flutter doctor
 ```
 
-## 🚀 Getting Started
+### Install and run
 
-1. Make sure you have Flutter installed: https://docs.flutter.dev/get-started/install
-   ```bash
-   flutter --version   # Flutter 3.x recommended
-   ```
+```bash
+git clone https://github.com/Cherkaoui7/tasty-bites.git
+cd tasty-bites
+flutter pub get
+flutter run -d chrome
+```
 
-2. From the project root, fetch dependencies:
-   ```bash
-   cd tasty_bites
-   flutter pub get
-   ```
+To choose a different available device, run `flutter devices`, then pass its identifier to `flutter run -d <device-id>`.
 
-3. Run on a connected device or emulator:
-   ```bash
-   flutter run
-   ```
+### Verify and build
 
-   To build a release APK (Android):
-   ```bash
-   flutter build apk --release
-   ```
+```bash
+# Run the widget test suite
+flutter test
 
-> **Note:** This repo contains the Dart source (`lib/`) and `pubspec.yaml`. To generate the
-> platform folders (`android/`, `ios/`, `web/`), run `flutter create .` inside the project once.
+# Create an optimized web build in build/web
+flutter build web
+```
 
-## 🎨 Customizing
+You can preview the generated web output with any static-file server, or deploy the `build/web` directory to a web host.
 
-- **Brand color** — change `seed` in `lib/main.dart`
-- **Menu items** — edit `lib/data/sample_data.dart`
-- **Real images** — swap the `emoji` field for `Image.network(...)` / `Image.asset(...)` in `dish_card.dart`, `menu_screen.dart`, and `dish_detail_screen.dart`
+## Project structure
 
-## 📄 License
+```text
+lib/
+├── data/
+│   └── sample_data.dart        # Demo categories and menu items
+├── models/
+│   └── dish.dart               # Dish data model
+├── providers/
+│   └── cart_provider.dart      # Cart state and price calculations
+├── screens/
+│   ├── root_nav.dart           # Bottom navigation shell
+│   ├── home_screen.dart        # Landing and discovery experience
+│   ├── menu_screen.dart        # Searchable menu
+│   ├── dish_detail_screen.dart # Dish details and add-to-cart controls
+│   ├── cart_screen.dart        # Basket and checkout summary
+│   └── profile_screen.dart     # User profile and settings actions
+├── widgets/
+│   └── dish_card.dart          # Reusable menu-card presentation
+└── main.dart                   # App theme and provider setup
+
+test/
+└── widget_test.dart            # Home-screen startup smoke test
+
+web/                            # Flutter web runner and icons
+```
+
+## Customization guide
+
+### Brand and theme
+
+Change `TastyBitesApp.seed` in [lib/main.dart](lib/main.dart) to update the primary color. The rest of the Material 3 color scheme is generated from that seed.
+
+### Menu content
+
+Edit the categories and dishes in [lib/data/sample_data.dart](lib/data/sample_data.dart). Each dish model controls the name, price, category, rating, preparation time, and emoji shown throughout the app.
+
+### Images
+
+The app uses emojis so it runs without downloaded media. For production artwork, replace the emoji rendering in the dish widgets/screens with `Image.asset` or `Image.network`, then declare local files from an `assets/` directory in the `flutter:` section of `pubspec.yaml` when necessary.
+
+### Checkout behaviour
+
+Cart totals and delivery calculations live in [lib/providers/cart_provider.dart](lib/providers/cart_provider.dart). This is the natural place to connect a backend, delivery rules, or payments in a full application.
+
+## Notes
+
+This repository includes Flutter web support. To add another platform later, generate only the platform you need, for example:
+
+```bash
+flutter create --platforms=android,ios .
+```
+
+## License
 
 Released under the [MIT License](LICENSE).
-
-Enjoy! 🍽️
