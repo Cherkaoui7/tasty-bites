@@ -34,7 +34,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                         Container(
                           height: 280,
                           width: double.infinity,
-                          color: theme.colorScheme.primary.withOpacity(0.08),
+                          color: theme.colorScheme.primary.withValues(alpha: 0.08),
                           child: Center(
                             child: Text(dish.emoji,
                                 style: const TextStyle(fontSize: 120)),
@@ -190,7 +190,7 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -221,7 +221,7 @@ class _QtyButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.12),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(icon,

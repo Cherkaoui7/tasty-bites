@@ -56,7 +56,7 @@ class CartScreen extends StatelessWidget {
                           width: 64,
                           decoration: BoxDecoration(
                             color:
-                                theme.colorScheme.primary.withOpacity(0.08),
+                                theme.colorScheme.primary.withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: Center(
@@ -205,7 +205,7 @@ class _RoundIcon extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.12),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(icon,
@@ -220,15 +220,15 @@ class _EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('🛒', style: TextStyle(fontSize: 72)),
-        const SizedBox(height: 16),
-        const Text('Your cart is empty',
+        Text('🛒', style: TextStyle(fontSize: 72)),
+        SizedBox(height: 16),
+        Text('Your cart is empty',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-        const SizedBox(height: 8),
-        const Text('Add some delicious dishes to get started',
+        SizedBox(height: 8),
+        Text('Add some delicious dishes to get started',
             style: TextStyle(color: Colors.black54)),
       ],
     );

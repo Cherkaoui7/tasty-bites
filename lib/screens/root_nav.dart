@@ -35,7 +35,7 @@ class _RootNavState extends State<RootNav> {
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
         backgroundColor: Colors.white,
-        indicatorColor: primary.withOpacity(0.12),
+        indicatorColor: primary.withValues(alpha: 0.12),
         destinations: [
           const NavigationDestination(
               icon: Icon(Icons.home_outlined),

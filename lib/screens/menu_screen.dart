@@ -96,7 +96,7 @@ class _MenuTile extends StatelessWidget {
               height: 72,
               width: 72,
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.08),
+                color: theme.colorScheme.primary.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Center(

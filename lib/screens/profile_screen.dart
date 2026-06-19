@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 46,
                   backgroundColor:
-                      theme.colorScheme.primary.withOpacity(0.12),
+                      theme.colorScheme.primary.withValues(alpha: 0.12),
                   child: const Text('😀', style: TextStyle(fontSize: 44)),
                 ),
                 const SizedBox(height: 12),
@@ -46,18 +46,22 @@ class ProfileScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Column(
-              children: [
-                for (final item in items)
-                  ListTile(
-                    leading: Icon(item.$1,
-                        color: theme.colorScheme.primary),
-                    title: Text(item.$2),
-                    trailing: const Icon(Icons.chevron_right,
-                        color: Colors.black38),
-                    onTap: () {},
-                  ),
-              ],
+            child: Material(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+              child: Column(
+                children: [
+                  for (final item in items)
+                    ListTile(
+                      leading: Icon(item.$1,
+                          color: theme.colorScheme.primary),
+                      title: Text(item.$2),
+                      trailing: const Icon(Icons.chevron_right,
+                          color: Colors.black38),
+                      onTap: () {},
+                    ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 20),

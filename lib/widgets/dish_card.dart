@@ -22,7 +22,7 @@ class DishCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -37,7 +37,7 @@ class DishCard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withOpacity(0.08),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.08),
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),

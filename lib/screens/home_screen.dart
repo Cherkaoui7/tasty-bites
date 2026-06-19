@@ -33,29 +33,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Deliver to',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 12)),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on,
-                                  color: theme.colorScheme.primary, size: 18),
-                              const SizedBox(width: 4),
-                              const Text('123 Flavour Street',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14)),
-                            ],
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Deliver to',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 12)),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on,
+                                    color: theme.colorScheme.primary, size: 18),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: const Text('123 Flavour Street',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14)),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      const Spacer(),
+                      const SizedBox(width: 12),
                       CircleAvatar(
                         backgroundColor: theme.colorScheme.primary
-                            .withOpacity(0.12),
+                            .withValues(alpha: 0.12),
                         child: Icon(Icons.notifications_none,
                             color: theme.colorScheme.primary),
                       ),
@@ -74,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 10,
                         ),
                       ],
@@ -97,14 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       gradient: LinearGradient(
                         colors: [
                           theme.colorScheme.primary,
-                          theme.colorScheme.primary.withOpacity(0.7),
+                          theme.colorScheme.primary.withValues(alpha: 0.7),
                         ],
                       ),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -119,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        const Text('🎉', style: TextStyle(fontSize: 40)),
+                        Text('🎉', style: TextStyle(fontSize: 40)),
                       ],
                     ),
                   ),
