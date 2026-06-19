@@ -41,11 +41,10 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
+          Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
                 for (final item in items)
