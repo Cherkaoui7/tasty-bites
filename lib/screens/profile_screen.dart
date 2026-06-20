@@ -7,6 +7,8 @@ import 'profile_sub_screens/notifications_screen.dart';
 import 'profile_sub_screens/orders_screen.dart';
 import 'profile_sub_screens/payment_methods_screen.dart';
 import 'profile_sub_screens/settings_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -15,6 +17,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final user = context.watch<UserProvider>().currentUser;
+
     final items = <(IconData, String, WidgetBuilder)>[
       (Icons.receipt_long, 'My Orders', (_) => const OrdersScreen()),
       (Icons.favorite_border, 'Favourites', (_) => const FavouritesScreen()),
@@ -37,14 +41,14 @@ class ProfileScreen extends StatelessWidget {
                   radius: 46,
                   backgroundColor:
                       theme.colorScheme.primary.withValues(alpha: 0.12),
-                  child: const Text('😀', style: TextStyle(fontSize: 44)),
+                  child: Text(user != null ? user.name[0].toUpperCase() : 'A', style: const TextStyle(fontSize: 44)),
                 ),
                 const SizedBox(height: 12),
-                const Text('Alex Johnson',
-                    style: TextStyle(
+                Text(user?.name ?? 'Alex Johnson',
+                    style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                Text('alex.johnson@email.com',
+                Text(user?.email ?? 'alex.johnson@email.com',
                     style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
               ],
             ),
@@ -78,6 +82,7 @@ class ProfileScreen extends StatelessWidget {
             height: 52,
             child: OutlinedButton.icon(
               onPressed: () {
+                context.read<UserProvider>().logoutUser();
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (_) => const LoginScreen()),

@@ -5,8 +5,10 @@ import '../models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   List<User> _users = [];
+  User? _currentUser;
 
   List<User> get users => _users;
+  User? get currentUser => _currentUser;
 
   UserProvider() {
     _loadUsers();
@@ -42,9 +44,17 @@ class UserProvider extends ChangeNotifier {
 
   User? loginUser(String email, String password) {
     try {
-      return _users.firstWhere((u) => u.email == email && u.password == password);
+      final user = _users.firstWhere((u) => u.email == email && u.password == password);
+      _currentUser = user;
+      notifyListeners();
+      return user;
     } catch (e) {
       return null;
     }
+  }
+
+  void logoutUser() {
+    _currentUser = null;
+    notifyListeners();
   }
 }
