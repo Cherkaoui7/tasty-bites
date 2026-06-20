@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/order_provider.dart';
-import '../../models/user.dart';
-import '../../models/order.dart';
+
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -14,10 +13,10 @@ class AdminDashboardScreen extends StatelessWidget {
     final orderProvider = context.watch<OrderProvider>();
 
     final totalUsers = userProvider.users.length;
-    final pendingUsers = userProvider.users.where((u) => u.status == UserStatus.pending).length;
+    final pendingUsers = userProvider.pendingUsersCount;
     
     final totalOrders = orderProvider.orders.length;
-    final pendingOrders = orderProvider.orders.where((o) => o.status == OrderStatus.preparing).length;
+    final pendingOrders = orderProvider.pendingOrdersCount;
 
     return ListView(
       padding: const EdgeInsets.all(16),

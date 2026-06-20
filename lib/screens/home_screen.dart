@@ -44,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icon(Icons.location_on,
                                     color: theme.colorScheme.primary, size: 18),
                                 const SizedBox(width: 4),
-                                Expanded(
-                                  child: const Text('123 Flavour Street',
+                                const Expanded(
+                                  child: Text('123 Flavour Street',
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,

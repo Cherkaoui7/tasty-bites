@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
+import '../utils/auth_utils.dart';
+import '../components/tasty_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -30,42 +32,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               const Text('Name', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'John Doe',
-                  filled: true,
-                  fillColor: theme.colorScheme.surface,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                ),
+              TastyTextField(
+                hint: 'Full Name',
                 validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                 onSaved: (val) => _name = val!,
               ),
               const SizedBox(height: 16),
-              const Text('Email', style: TextStyle(fontWeight: FontWeight.w600)),
-              const SizedBox(height: 8),
-              TextFormField(
+              TastyTextField(
+                hint: 'Email',
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'john@example.com',
-                  filled: true,
-                  fillColor: theme.colorScheme.surface,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                ),
                 validator: (val) => val == null || !val.contains('@') ? 'Invalid email' : null,
                 onSaved: (val) => _email = val!,
               ),
               const SizedBox(height: 16),
-              const Text('Password', style: TextStyle(fontWeight: FontWeight.w600)),
-              const SizedBox(height: 8),
-              TextFormField(
+              TastyTextField(
+                hint: 'Password',
                 obscureText: true,
-                decoration: InputDecoration(
-                  hintText: '••••••••',
-                  filled: true,
-                  fillColor: theme.colorScheme.surface,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                ),
-                validator: (val) => val == null || val.length < 6 ? 'Password must be at least 6 chars' : null,
+                validator: (val) => val == null || val.length < 4 ? 'Too short' : null,
                 onSaved: (val) => _password = val!,
               ),
               const SizedBox(height: 32),
@@ -85,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           id: DateTime.now().millisecondsSinceEpoch.toString(),
                           name: _name,
                           email: _email,
-                          password: _password,
+                          password: AuthUtils.hashPassword(_password),
                         ),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Account created! Awaiting admin approval.')));

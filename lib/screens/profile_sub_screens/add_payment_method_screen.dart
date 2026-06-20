@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/payment_method.dart';
 import '../../providers/payment_provider.dart';
+import '../../components/tasty_text_field.dart';
 
 class AddPaymentMethodScreen extends StatefulWidget {
   const AddPaymentMethodScreen({super.key});
@@ -16,7 +17,6 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
 
   String _cardNumber = '';
   String _expiry = '';
-  String _cvv = '';
   String _paypalEmail = '';
 
   @override
@@ -59,7 +59,7 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
             if (_selectedType == 'Card') ...[
               const Text('Card Number', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
               const SizedBox(height: 8),
-              _buildTextField(
+              TastyTextField(
                 hint: '0000 0000 0000 0000',
                 keyboardType: TextInputType.number,
                 validator: (val) => val == null || val.isEmpty ? 'Required' : null,
@@ -74,7 +74,7 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
                       children: [
                         const Text('Expiry Date', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
                         const SizedBox(height: 8),
-                        _buildTextField(
+                        TastyTextField(
                           hint: 'MM/YY',
                           keyboardType: TextInputType.datetime,
                           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
@@ -90,11 +90,12 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
                       children: [
                         const Text('CVV', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
                         const SizedBox(height: 8),
-                        _buildTextField(
+                        TastyTextField(
                           hint: '123',
                           keyboardType: TextInputType.number,
+                          obscureText: true,
                           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-                          onSaved: (val) => _cvv = val!,
+                          onSaved: (val) {}, // We don't save CVV
                         ),
                       ],
                     ),
@@ -104,7 +105,7 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
             ] else ...[
               const Text('PayPal Email', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
               const SizedBox(height: 8),
-              _buildTextField(
+              TastyTextField(
                 hint: 'you@example.com',
                 keyboardType: TextInputType.emailAddress,
                 validator: (val) => val == null || !val.contains('@') ? 'Invalid email' : null,
@@ -127,23 +128,6 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField({required String hint, required TextInputType keyboardType, required String? Function(String?) validator, required void Function(String?) onSaved}) {
-    return TextFormField(
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        hintText: hint,
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      validator: validator,
-      onSaved: onSaved,
     );
   }
 

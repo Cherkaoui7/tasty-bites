@@ -6,6 +6,8 @@ class OrderProvider extends ChangeNotifier {
 
   List<Order> get orders => _orders;
 
+  int get pendingOrdersCount => _orders.where((o) => o.status == OrderStatus.preparing).length;
+
   void addOrder(Order order) {
     _orders.insert(0, order);
     notifyListeners();

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
+import '../utils/auth_utils.dart';
 
 class UserProvider extends ChangeNotifier {
   List<User> _users = [];
@@ -9,6 +10,8 @@ class UserProvider extends ChangeNotifier {
 
   List<User> get users => _users;
   User? get currentUser => _currentUser;
+  
+  int get pendingUsersCount => _users.where((u) => u.status == UserStatus.pending).length;
 
   UserProvider() {
     _loadUsers();
@@ -44,7 +47,15 @@ class UserProvider extends ChangeNotifier {
 
   User? loginUser(String email, String password) {
     try {
-      final user = _users.firstWhere((u) => u.email == email && u.password == password);
+      if (email == 'admin@tastybites.com' && password == 'admin') {
+        const adminUser = User(id: 'admin', name: 'Admin', email: 'admin@tastybites.com', password: '', status: UserStatus.approved);
+        _currentUser = adminUser;
+        notifyListeners();
+        return adminUser;
+      }
+
+      final hashed = AuthUtils.hashPassword(password);
+      final user = _users.firstWhere((u) => u.email == email && u.password == hashed);
       _currentUser = user;
       notifyListeners();
       return user;

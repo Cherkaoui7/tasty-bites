@@ -5,6 +5,7 @@ import 'admin/admin_root_nav.dart';
 import 'register_screen.dart';
 import '../providers/user_provider.dart';
 import '../models/user.dart';
+import '../components/tasty_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,14 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    if (_email == 'admin@tastybites.com' && _password == 'admin') {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AdminRootNav()));
-      return;
-    }
-
     final user = context.read<UserProvider>().loginUser(_email, _password);
     if (user == null) {
       _showError('Invalid email or password');
+      return;
+    }
+
+    if (user.id == 'admin') {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AdminRootNav()));
       return;
     }
 
@@ -75,26 +76,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 32),
-                  TextFormField(
+                  TastyTextField(
+                    hint: 'Email',
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      filled: true,
-                      fillColor: theme.colorScheme.surface,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                    ),
                     validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                     onSaved: (val) => _email = val!,
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  TastyTextField(
+                    hint: 'Password',
                     obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      filled: true,
-                      fillColor: theme.colorScheme.surface,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                    ),
                     validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                     onSaved: (val) => _password = val!,
                   ),
