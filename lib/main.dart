@@ -9,7 +9,8 @@ import 'providers/address_provider.dart';
 import 'providers/payment_provider.dart';
 import 'providers/notification_provider.dart';
 import 'providers/favourite_provider.dart';
-import 'screens/root_nav.dart';
+import 'providers/user_provider.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const TastyBitesApp());
@@ -31,6 +32,7 @@ class TastyBitesApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()),
         ChangeNotifierProvider(create: (_) => FavouriteProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -70,7 +72,7 @@ class TastyBitesApp extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
             ),
-            home: const RootNav(),
+            home: const LoginScreen(),
           );
         },
       ),

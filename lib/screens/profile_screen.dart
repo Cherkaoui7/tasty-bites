@@ -7,6 +7,7 @@ import 'profile_sub_screens/notifications_screen.dart';
 import 'profile_sub_screens/orders_screen.dart';
 import 'profile_sub_screens/payment_methods_screen.dart';
 import 'profile_sub_screens/settings_screen.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -76,7 +77,13 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(
             height: 52,
             child: OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (route) => false,
+                );
+              },
               icon: const Icon(Icons.logout, color: Colors.redAccent),
               label: const Text('Log Out',
                   style: TextStyle(color: Colors.redAccent)),
