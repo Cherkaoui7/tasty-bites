@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
+import '../providers/order_provider.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -46,7 +47,7 @@ class CartScreen extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(18),
                     ),
                     child: Row(
@@ -122,18 +123,18 @@ class _CheckoutPanel extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 12)],
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 12)],
       ),
       child: Column(
         children: [
-          _row('Subtotal', cart.subtotal),
+          _row(context, 'Subtotal', cart.subtotal),
           const SizedBox(height: 8),
-          _row('Delivery fee', cart.deliveryFee),
+          _row(context, 'Delivery fee', cart.deliveryFee),
           const Divider(height: 24),
-          _row('Total', cart.grandTotal, bold: true),
+          _row(context, 'Total', cart.grandTotal, bold: true),
           const SizedBox(height: 16),
           SizedBox(
             height: 56,
@@ -141,7 +142,7 @@ class _CheckoutPanel extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: theme.colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),
               ),
@@ -157,6 +158,7 @@ class _CheckoutPanel extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
+                          context.read<OrderProvider>().addOrder(cart.grandTotal);
                           cart.clear();
                           Navigator.pop(context);
                         },
@@ -176,11 +178,12 @@ class _CheckoutPanel extends StatelessWidget {
     );
   }
 
-  Widget _row(String label, double value, {bool bold = false}) {
+  Widget _row(BuildContext context, String label, double value, {bool bold = false}) {
+    final theme = Theme.of(context);
     final style = TextStyle(
       fontSize: bold ? 18 : 14,
       fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
-      color: bold ? Colors.black : Colors.black54,
+      color: bold ? theme.colorScheme.onSurface : theme.colorScheme.onSurface.withValues(alpha: 0.6),
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,16 +223,16 @@ class _EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('🛒', style: TextStyle(fontSize: 72)),
-        SizedBox(height: 16),
-        Text('Your cart is empty',
+        const Text('🛒', style: TextStyle(fontSize: 72)),
+        const SizedBox(height: 16),
+        const Text('Your cart is empty',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text('Add some delicious dishes to get started',
-            style: TextStyle(color: Colors.black54)),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6))),
       ],
     );
   }

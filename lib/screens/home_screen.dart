@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final dishes = selectedName == 'All'
         ? kDishes
         : kDishes.where((d) => d.category == selectedName).toList();
-    final popular = kDishes.where((d) => d.isPopular).toList();
 
     return SafeArea(
       child: CustomScrollView(
@@ -37,9 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Deliver to',
+                            Text('Deliver to',
                                 style: TextStyle(
-                                    color: Colors.black54, fontSize: 12)),
+                                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                             Row(
                               children: [
                                 Icon(Icons.location_on,
@@ -75,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
@@ -84,12 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(
-                        icon: Icon(Icons.search, color: Colors.black45),
+                        icon: Icon(Icons.search, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                         hintText: 'Search for dishes...',
                         border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.black45),
+                        hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                       ),
                     ),
                   ),
@@ -156,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         color: selected
                             ? theme.colorScheme.primary
-                            : Colors.white,
+                            : theme.colorScheme.surface,
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Row(
@@ -166,8 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(cat.name,
                               style: TextStyle(
                                   color: selected
-                                      ? Colors.white
-                                      : Colors.black87,
+                                      ? theme.colorScheme.onPrimary
+                                      : theme.colorScheme.onSurface,
                                   fontWeight: FontWeight.w600)),
                         ],
                       ),

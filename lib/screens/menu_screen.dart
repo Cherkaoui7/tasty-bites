@@ -35,7 +35,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
                 const Spacer(),
                 Text('${filtered.length} items',
-                    style: const TextStyle(color: Colors.black54)),
+                    style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
               ],
             ),
           ),
@@ -44,13 +44,13 @@ class _MenuScreenState extends State<MenuScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: TextField(
                 onChanged: (v) => setState(() => _query = v),
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.search, color: Colors.black45),
+                decoration: InputDecoration(
+                  icon: Icon(Icons.search, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                   hintText: 'Search the menu...',
                   border: InputBorder.none,
                 ),
@@ -87,7 +87,7 @@ class _MenuTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(18),
         ),
         child: Row(
@@ -115,8 +115,8 @@ class _MenuTile extends StatelessWidget {
                   Text(dish.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          color: Colors.black54, fontSize: 12)),
+                      style: TextStyle(
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                   const SizedBox(height: 6),
                   Row(
                     children: [
@@ -128,8 +128,8 @@ class _MenuTile extends StatelessWidget {
                       const Icon(Icons.star_rounded,
                           color: Colors.amber, size: 16),
                       Text('${dish.rating}',
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.black54)),
+                          style: TextStyle(
+                              fontSize: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
                     ],
                   ),
                 ],

@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'profile_sub_screens/address_screen.dart';
+import 'profile_sub_screens/favourites_screen.dart';
+import 'profile_sub_screens/help_support_screen.dart';
+import 'profile_sub_screens/notifications_screen.dart';
+import 'profile_sub_screens/orders_screen.dart';
+import 'profile_sub_screens/payment_methods_screen.dart';
+import 'profile_sub_screens/settings_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final items = <(IconData, String)>[
-      (Icons.receipt_long, 'My Orders'),
-      (Icons.favorite_border, 'Favourites'),
-      (Icons.location_on_outlined, 'Delivery Address'),
-      (Icons.payment, 'Payment Methods'),
-      (Icons.notifications_none, 'Notifications'),
-      (Icons.help_outline, 'Help & Support'),
-      (Icons.settings_outlined, 'Settings'),
+    final items = <(IconData, String, WidgetBuilder)>[
+      (Icons.receipt_long, 'My Orders', (_) => const OrdersScreen()),
+      (Icons.favorite_border, 'Favourites', (_) => const FavouritesScreen()),
+      (Icons.location_on_outlined, 'Delivery Address', (_) => const AddressScreen()),
+      (Icons.payment, 'Payment Methods', (_) => const PaymentMethodsScreen()),
+      (Icons.notifications_none, 'Notifications', (_) => const NotificationsScreen()),
+      (Icons.help_outline, 'Help & Support', (_) => const HelpSupportScreen()),
+      (Icons.settings_outlined, 'Settings', (_) => const SettingsScreen()),
     ];
 
     return SafeArea(
@@ -35,14 +43,14 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                const Text('alex.johnson@email.com',
-                    style: TextStyle(color: Colors.black54)),
+                Text('alex.johnson@email.com',
+                    style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
               ],
             ),
           ),
           const SizedBox(height: 24),
           Material(
-            color: Colors.white,
+            color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(20),
             clipBehavior: Clip.antiAlias,
             child: Column(
@@ -52,9 +60,14 @@ class ProfileScreen extends StatelessWidget {
                     leading: Icon(item.$1,
                         color: theme.colorScheme.primary),
                     title: Text(item.$2),
-                    trailing: const Icon(Icons.chevron_right,
-                        color: Colors.black38),
-                    onTap: () {},
+                    trailing: Icon(Icons.chevron_right,
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.38)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: item.$3),
+                      );
+                    },
                   ),
               ],
             ),

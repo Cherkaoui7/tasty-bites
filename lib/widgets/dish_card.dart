@@ -18,7 +18,7 @@ class DishCard extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -58,9 +58,9 @@ class DishCard extends StatelessWidget {
                           color: theme.colorScheme.primary,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text('Popular',
+                        child: Text('Popular',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: theme.colorScheme.onPrimary,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600)),
                       ),
@@ -87,12 +87,12 @@ class DishCard extends StatelessWidget {
                           color: Colors.amber, size: 16),
                       const SizedBox(width: 2),
                       Text('${dish.rating}',
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.black54)),
+                          style: TextStyle(
+                              fontSize: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
                       const Spacer(),
                       Text('${dish.prepMinutes} min',
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.black54)),
+                          style: TextStyle(
+                              fontSize: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -124,8 +124,8 @@ class DishCard extends StatelessWidget {
                             color: theme.colorScheme.primary,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Icon(Icons.add,
-                              color: Colors.white, size: 18),
+                          child: Icon(Icons.add,
+                              color: theme.colorScheme.onPrimary, size: 18),
                         ),
                       ),
                     ],

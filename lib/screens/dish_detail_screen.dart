@@ -44,10 +44,10 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                           top: 12,
                           left: 12,
                           child: CircleAvatar(
-                            backgroundColor: Colors.white,
+                            backgroundColor: theme.colorScheme.surface,
                             child: IconButton(
-                              icon: const Icon(Icons.arrow_back,
-                                  color: Colors.black87),
+                              icon: Icon(Icons.arrow_back,
+                                  color: theme.colorScheme.onSurface),
                               onPressed: () => Navigator.pop(context),
                             ),
                           ),
@@ -100,8 +100,8 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                                   fontWeight: FontWeight.w700)),
                           const SizedBox(height: 8),
                           Text(dish.description,
-                              style: const TextStyle(
-                                  color: Colors.black54, height: 1.5)),
+                              style: TextStyle(
+                                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6), height: 1.5)),
                           const SizedBox(height: 20),
                           Row(
                             children: [
@@ -138,9 +138,9 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
             // Add to cart bar
             Container(
               padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                boxShadow: const [
                   BoxShadow(color: Colors.black12, blurRadius: 10),
                 ],
               ),
@@ -150,7 +150,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: theme.colorScheme.onPrimary,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                   ),

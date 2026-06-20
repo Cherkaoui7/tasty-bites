@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/cart_provider.dart';
+import 'providers/order_provider.dart';
+import 'providers/theme_provider.dart';
 import 'screens/root_nav.dart';
 
 void main() {
@@ -16,27 +18,53 @@ class TastyBitesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => CartProvider(),
-      child: MaterialApp(
-        title: 'Tasty Bites',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: seed,
-            primary: seed,
-          ),
-          scaffoldBackgroundColor: const Color(0xFFFAFAFA),
-          textTheme: GoogleFonts.poppinsTextTheme(),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            scrolledUnderElevation: 0,
-            foregroundColor: Color(0xFF1A1A1A),
-          ),
-        ),
-        home: const RootNav(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'Tasty Bites',
+            debugShowCheckedModeBanner: false,
+            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            theme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: seed,
+                primary: seed,
+                brightness: Brightness.light,
+              ),
+              scaffoldBackgroundColor: const Color(0xFFFAFAFA),
+              textTheme: GoogleFonts.poppinsTextTheme(),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                foregroundColor: Color(0xFF1A1A1A),
+              ),
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: seed,
+                primary: seed,
+                brightness: Brightness.dark,
+              ),
+              scaffoldBackgroundColor: const Color(0xFF121212),
+              textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                foregroundColor: Colors.white,
+              ),
+            ),
+            home: const RootNav(),
+          );
+        },
       ),
     );
   }
