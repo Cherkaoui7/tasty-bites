@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
+import '../models/order.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -158,7 +159,13 @@ class _CheckoutPanel extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          context.read<OrderProvider>().addOrder(cart.grandTotal);
+                          context.read<OrderProvider>().addOrder(
+                            Order(
+                              id: DateTime.now().millisecondsSinceEpoch.toString().substring(7),
+                              date: '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                              total: cart.grandTotal,
+                            )
+                          );
                           cart.clear();
                           Navigator.pop(context);
                         },

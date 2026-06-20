@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/payment_provider.dart';
-import '../../models/payment_method.dart';
+import 'add_payment_method_screen.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
   const PaymentMethodsScreen({super.key});
@@ -18,17 +18,10 @@ class PaymentMethodsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.read<PaymentProvider>().addMethod(
-            PaymentMethod(
-              id: DateTime.now().toString(),
-              title: 'PayPal',
-              subtitle: 'user@example.com',
-              icon: Icons.paypal,
-            ),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddPaymentMethodScreen()),
           );
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(const SnackBar(content: Text('Payment method added!')));
         },
         backgroundColor: theme.colorScheme.primary,
         icon: Icon(Icons.add, color: theme.colorScheme.onPrimary),

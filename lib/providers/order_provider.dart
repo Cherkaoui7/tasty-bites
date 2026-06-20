@@ -1,21 +1,31 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../models/order.dart';
 
 class OrderProvider extends ChangeNotifier {
-  final List<Order> _orders = [
-    const Order(id: '#10452', date: 'Today, 12:45 PM', total: 24.50, status: 'Delivered'),
-    const Order(id: '#10451', date: 'Yesterday, 7:30 PM', total: 18.00, status: 'Delivered'),
-  ];
+  final List<Order> _orders = [];
 
-  List<Order> get orders => List.unmodifiable(_orders);
+  List<Order> get orders => _orders;
 
-  void addOrder(double total) {
-    final newOrder = Order(
-      id: '#${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-      date: 'Just now',
-      total: total,
-    );
-    _orders.insert(0, newOrder);
+  void addOrder(Order order) {
+    _orders.insert(0, order);
     notifyListeners();
+    _simulateTracking(order.id);
+  }
+
+  void _simulateTracking(String id) {
+    Future.delayed(const Duration(seconds: 10), () {
+      _updateStatus(id, OrderStatus.delivering);
+      Future.delayed(const Duration(seconds: 15), () {
+        _updateStatus(id, OrderStatus.confirmed);
+      });
+    });
+  }
+
+  void _updateStatus(String id, OrderStatus newStatus) {
+    final index = _orders.indexWhere((o) => o.id == id);
+    if (index != -1) {
+      _orders[index] = _orders[index].copyWith(status: newStatus);
+      notifyListeners();
+    }
   }
 }

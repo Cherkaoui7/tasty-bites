@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/address_provider.dart';
-import '../../models/address.dart';
+import 'add_address_screen.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});
@@ -18,17 +18,10 @@ class AddressScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.read<AddressProvider>().addAddress(
-            Address(
-              id: DateTime.now().toString(),
-              title: 'Other',
-              address: '789 New Location, City, NY',
-              icon: Icons.location_on_outlined,
-            ),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddAddressScreen()),
           );
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(const SnackBar(content: Text('New address added!')));
         },
         backgroundColor: theme.colorScheme.primary,
         icon: Icon(Icons.add, color: theme.colorScheme.onPrimary),
