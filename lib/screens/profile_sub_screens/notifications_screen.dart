@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/notification_provider.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -7,35 +9,29 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     
-    final notifications = [
-      {
-        'title': 'Order Delivered!',
-        'message': 'Your order #10452 has been delivered. Enjoy your meal!',
-        'time': '2 hours ago',
-        'icon': Icons.check_circle_outline,
-        'color': Colors.green,
-      },
-      {
-        'title': '20% Off Weekend Promo 🍔',
-        'message': 'Use code WEEKEND20 to get 20% off all burgers this weekend.',
-        'time': 'Yesterday',
-        'icon': Icons.local_offer_outlined,
-        'color': theme.colorScheme.primary,
-      },
-      {
-        'title': 'New Restaurant Added',
-        'message': 'We just added "Sushi Master" to our list. Check it out now!',
-        'time': '3 days ago',
-        'icon': Icons.storefront_outlined,
-        'color': Colors.orange,
-      },
-    ];
+    final notifications = context.watch<NotificationProvider>().notifications;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
+        actions: [
+          if (notifications.isNotEmpty)
+            TextButton(
+              onPressed: () {
+                context.read<NotificationProvider>().clear();
+              },
+              child: const Text('Clear All'),
+            ),
+        ],
       ),
-      body: ListView.separated(
+      body: notifications.isEmpty
+          ? Center(
+              child: Text(
+                'No new notifications',
+                style: TextStyle(fontSize: 18, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+              ),
+            )
+          : ListView.separated(
         padding: const EdgeInsets.all(20),
         itemCount: notifications.length,
         separatorBuilder: (context, index) => const Divider(height: 32),
@@ -48,12 +44,12 @@ class NotificationsScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: (notif['color'] as Color).withValues(alpha: 0.1),
+                  color: notif.color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  notif['icon'] as IconData,
-                  color: notif['color'] as Color,
+                  notif.icon,
+                  color: notif.color,
                   size: 24,
                 ),
               ),
@@ -67,19 +63,19 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            notif['title'] as String,
+                            notif.title,
                             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                           ),
                         ),
                         Text(
-                          notif['time'] as String,
+                          notif.time,
                           style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5), fontSize: 12),
                         ),
                       ],
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      notif['message'] as String,
+                      notif.message,
                       style: TextStyle(color: theme.colorScheme.onSurface, height: 1.4),
                     ),
                   ],

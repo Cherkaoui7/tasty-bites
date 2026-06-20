@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/dish.dart';
 import '../providers/cart_provider.dart';
+import '../providers/favourite_provider.dart';
 
 class DishDetailScreen extends StatefulWidget {
   final Dish dish;
@@ -50,6 +51,25 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                                   color: theme.colorScheme.onSurface),
                               onPressed: () => Navigator.pop(context),
                             ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 12,
+                          right: 12,
+                          child: Consumer<FavouriteProvider>(
+                            builder: (context, fav, child) {
+                              final isFav = fav.isFavourite(dish);
+                              return CircleAvatar(
+                                backgroundColor: theme.colorScheme.surface,
+                                child: IconButton(
+                                  icon: Icon(
+                                    isFav ? Icons.favorite : Icons.favorite_border,
+                                    color: isFav ? Colors.red : theme.colorScheme.onSurface,
+                                  ),
+                                  onPressed: () => fav.toggleFavourite(dish),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

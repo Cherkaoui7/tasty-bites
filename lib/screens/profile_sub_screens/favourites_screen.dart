@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../data/sample_data.dart';
+import 'package:provider/provider.dart';
+import '../../providers/favourite_provider.dart';
 import '../../widgets/dish_card.dart';
 
 class FavouritesScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class FavouritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favourites = kDishes.where((dish) => dish.isPopular).toList();
+    final favourites = context.watch<FavouriteProvider>().favourites;
 
     return Scaffold(
       appBar: AppBar(

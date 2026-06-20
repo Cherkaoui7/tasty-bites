@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'providers/cart_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/theme_provider.dart';
+import 'providers/address_provider.dart';
+import 'providers/payment_provider.dart';
+import 'providers/notification_provider.dart';
+import 'providers/favourite_provider.dart';
 import 'screens/root_nav.dart';
 
 void main() {
@@ -23,6 +27,10 @@ class TastyBitesApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => AddressProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
+        ChangeNotifierProvider(create: (_) => FavouriteProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {

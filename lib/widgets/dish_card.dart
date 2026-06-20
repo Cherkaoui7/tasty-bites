@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/dish.dart';
 import '../providers/cart_provider.dart';
+import '../providers/favourite_provider.dart';
 import '../screens/dish_detail_screen.dart';
 
 class DishCard extends StatelessWidget {
@@ -65,6 +66,25 @@ class DishCard extends StatelessWidget {
                                 fontWeight: FontWeight.w600)),
                       ),
                     ),
+                  Positioned(
+                    top: 6,
+                    right: 6,
+                    child: Consumer<FavouriteProvider>(
+                      builder: (context, fav, child) {
+                        final isFav = fav.isFavourite(dish);
+                        return IconButton(
+                          padding: const EdgeInsets.all(4),
+                          constraints: const BoxConstraints(),
+                          icon: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: isFav ? Colors.red : theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                            size: 20,
+                          ),
+                          onPressed: () => fav.toggleFavourite(dish),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
